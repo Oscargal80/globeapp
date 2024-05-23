@@ -1,0 +1,29 @@
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loader-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 2px;
+  background-color: #000;
+  transition: width 0.2s;
+}
+
+.loader-line.explode {
+  width: 100%; /* Asegúrate de que la línea esté completa antes de explotar */
+  height: 10px;
+  background-color: red; /* Cambia el color para el efecto de explosión */
+  transform: scale(1.5);
+  transition: transform 0.5s ease-out, height 0.5s ease-out, background-color 0.5s ease-out;
+}

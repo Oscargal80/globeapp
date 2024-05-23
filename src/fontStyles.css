@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'JetBrains';
+    src: url('./assets/jetbrains.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .font-jetbrains {
+    font-family: 'JetBrains', sans-serif;
+  }
+  
