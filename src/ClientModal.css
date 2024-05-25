@@ -1,0 +1,58 @@
+.client-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .client-modal {
+    background: white;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80%;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .client-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f1f1f1;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .client-modal-content {
+    padding: 1rem;
+    overflow-y: auto; /* Añade el scroll vertical */
+    flex-grow: 1; /* Para que ocupe el espacio restante del modal */
+  }
+  
+  .client-preview {
+    margin-bottom: 1rem;
+  }
+  
+  .client-preview h4 {
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .client-preview iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+  }
+  
+  .client-modal-close {
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  

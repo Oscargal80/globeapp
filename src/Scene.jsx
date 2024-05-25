@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import SceneContent from './SceneContent';
@@ -8,9 +8,21 @@ import './App.css'; // Asegúrate de importar los estilos
 
 const Scene = ({ allowInteraction, onButtonClick }) => {
   const [loading, setLoading] = useState(false);
-  const clickSound = new Audio('/assets/bip.wav'); // Ruta al archivo de sonido
+  const [clickSound] = useState(new Audio('/assets/bip.wav')); // Precarga del sonido
+
+  useEffect(() => {
+    // Precargar el sonido
+    clickSound.load();
+
+    return () => {
+      // Limpiar el recurso cuando el componente se desmonte
+      clickSound.pause();
+      clickSound.src = '';
+    };
+  }, [clickSound]);
 
   const handleClick = () => {
+    clickSound.currentTime = 0; // Reiniciar el sonido
     clickSound.play(); // Reproducir sonido
     onButtonClick(); // Llamar a la función onButtonClick
   };

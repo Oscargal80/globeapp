@@ -5,8 +5,8 @@ import './GridPattern.css'; // Importa el archivo CSS para GridPattern
 const cn = (...classes) => classes.filter(Boolean).join(' ');
 
 export function GridPattern({
-  width = 15, // Reducido para cuadros más pequeños
-  height = 15, // Reducido para cuadros más pequeños
+  width = 5, // Reducido para cuadros más pequeños
+  height = 5, // Reducido para cuadros más pequeños
   x = -1,
   y = -1,
   strokeDasharray = 0,
