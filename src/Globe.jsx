@@ -160,11 +160,19 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
     config: { duration: 1000 },
   });
 
+  // Animación de zoom inicial
+  const zoomStyle = useSpring({
+    from: { transform: 'scale(0)' },
+    to: { transform: 'scale(1)' },
+    config: { duration: 1500 }, // Ajustar la duración a 1.5 segundos
+  });
+
   return (
     <div className={`globe-container ${className}`}>
-      <canvas
+      <animated.canvas
         className="globe-canvas"
         ref={canvasRef}
+        style={zoomStyle}
         onPointerDown={(e) =>
           updatePointerInteraction(e.clientX - pointerInteractionMovement.current)
         }
@@ -201,8 +209,8 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
           borderRadius: '5px' 
         }}>
           <p>IP: {gpsData.ip}</p>
-          <p>GPS: {gpsData.location}</p>
-          <p>ISP: {gpsData.organization}</p>
+          <p>Ubicación: {gpsData.location}</p>
+          <p>Organización: {gpsData.organization}</p>
         </div>
       )}
       <AnimatedTitle style={{ position: 'absolute', zIndex: 1 }} /> {/* Añadir AnimatedTitle */}
