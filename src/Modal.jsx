@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import './Modal.css';
+import useSound from 'use-sound';
 
 const Modal = ({ show, onClose, title, children }) => {
   const nodeRef = useRef(null);
 
-  const closeSound = new Audio('/assets/close.mp3'); // Ruta al archivo de sonido
+  const [playCloseSound] = useSound('/assets/close.mp3'); // Ruta al archivo de sonido
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -26,7 +27,7 @@ const Modal = ({ show, onClose, title, children }) => {
   }, [show]);
 
   const playCloseSoundAndClose = () => {
-    closeSound.play(); // Reproducir sonido
+    playCloseSound(); // Reproducir sonido
     onClose(); // Cerrar modal
   };
 

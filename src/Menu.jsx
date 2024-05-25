@@ -3,7 +3,7 @@ import './App.css'; // Importa el archivo CSS global
 import LinkButton from './LinkButton';
 import Modal from './Modal';
 import ClientModal from './ClientModal';
-import Loader from './Loader'; // Importar el nuevo componente Loader
+import useSound from 'use-sound';
 
 const Menu = ({ onModalOpen, onModalClose }) => {
   const [showModal, setShowModal] = useState(false);
@@ -12,10 +12,10 @@ const Menu = ({ onModalOpen, onModalClose }) => {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false); // Estado para manejar el menú colapsado
 
-  const clickSound = new Audio('/assets/click.mp3'); // Ruta al archivo de sonido
+  const [playClickSound] = useSound('/assets/click.mp3'); // Ruta al archivo de sonido
 
   const handleLinkClick = (title, content) => {
-    clickSound.play(); // Reproducir sonido
+    playClickSound(); // Reproducir sonido
     setModalContent({ title, content });
     setShowModal(true);
     document.body.classList.add('modal-open'); // Desactivar clic en el menú
@@ -23,7 +23,7 @@ const Menu = ({ onModalOpen, onModalClose }) => {
   };
 
   const handleClientLinkClick = () => {
-    clickSound.play(); // Reproducir sonido
+    playClickSound(); // Reproducir sonido
     setShowClientModal(true);
     document.body.classList.add('modal-open'); // Desactivar clic en el menú
     if (onModalOpen) onModalOpen();
@@ -53,12 +53,11 @@ const Menu = ({ onModalOpen, onModalClose }) => {
 
   return (
     <div>
-      {loading && <Loader />}
       <div className="menu-button" onClick={toggleMenu}>M</div>
       <nav className={`menu ${menuOpen ? 'open' : ''}`}>
         <LinkButton href="#about" onClick={() => handleLinkClick('Acerca', 
           <>
-            <p>Nos dedicamos al desarrollo de sitios web minimalistas y elegantes, sencillos pero robustos y totalmente adaptables a cualquier formato, con campos y tablas dinámicas. Nuestro compromiso es crecer con usted y su emprendimiento. Para saber más, comuníquese a <a href="mailto:info@binariaos.com.py">info@binariaos.com.py</a></p>
+            <p>Nos dedicamos al desarrollo de sitios web minimalistas y elegantes, sencillos pero robustos y totalmente adaptables a cualquier formato, con campos y tablas dinámicas. Nuestro compromiso es crecer con usted y su emprendimiento. <p>Para saber más, comuníquese a <a href="mailto:info@binariaos.com.py">info@binariaos.com.py</a></p></p>
           </>
         )}>Acerca</LinkButton>
         <LinkButton href="#services" onClick={() => handleLinkClick('Servicios', 

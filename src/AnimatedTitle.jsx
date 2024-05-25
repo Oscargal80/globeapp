@@ -24,7 +24,7 @@ const AnimatedTitle = () => {
   }, [isFaded]);
 
   return (
-    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1, textAlign: 'center' }}>
+    <div style={{ position: 'absolute', top: '45%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1, textAlign: 'center' }}>
       <svg className="svg-title" version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="600px" height="100px" viewBox="0 0 600 100">
         <style type="text/css">
           {`

@@ -6,7 +6,7 @@
   font-display: swap; /* Asegura que el texto es visible durante la carga */
 }
 
-body {
+body, button, .menu, .menu-buttons button {
   font-family: 'JetBrains', sans-serif;
   margin: 0;
   padding: 0;
@@ -16,7 +16,38 @@ body {
   z-index: 1;
 }
 
-body::before {
+/* App.css */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.button-enter {
+  position: absolute;
+  bottom: 25%; /* Ajusta según necesites */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* Transición para el efecto fade */
+}
+
+.button-enter:hover {
+  background-color: #2e5399;
+  opacity: 0.8; /* Añadir efecto fade */
+}
+
+/* Elimina el fondo anterior */
+/* body::before {
   content: '';
   position: absolute;
   top: 0;
@@ -25,131 +56,131 @@ body::before {
   height: 100%;
   background: url('/assets/bg1.webp') no-repeat center center/cover;
   opacity: 0.1;
-  z-index: -1; /* Asegura que el fondo está detrás del contenido */
-}
+  z-index: -1; 
+} */
 
-.linkButton {
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 5px;
-  color: #000000;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.linkButton:hover {
-  color: #422aab;
-  transform: scale(1.05);
-}
-
-.menu {
-  position: absolute;
-  top: 10px; /* Ajusta según lo necesario */
-  left: 50%;
-  transform: translateX(-50%);
+.scene-container {
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center; /* Centra verticalmente */
-  background-color: rgba(0, 0, 0, 0.0);
-  padding: 15px 30px; /* Ajusta el padding para centrar el fondo más que los botones */
-  border-radius: 10px;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  background-color: rgba(0, 0, 0, 0.0);
-  color: #000000;
-  text-align: center;
-  padding: 10px 20px;
-  border-radius: 10px;
-}
-
-.footer-text {
-  margin: 0;
-}
-
-.home {
-  position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  transition: opacity 1s ease-in-out;
+  position: relative; /* Añadido para el fondo GridPattern */
 }
 
-.client-preview {
-  margin: 10px 0;
-}
-
-.client-preview iframe {
+.globe-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 150px; /* Reducir la altura del iframe */
-  border: none;
+  height: 100%;
+  position: relative;
 }
 
-/* Menu button for small screens */
-.menu-button {
-  display: none;
+.globe-canvas {
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+@media (min-width: 768px) {
+  .globe-canvas {
+    max-width: 800px; /* Ajusta el tamaño máximo del globo aquí */
+    max-height: 800px; /* Ajusta el tamaño máximo del globo aquí */
+  }
+}
+
+button.back-button {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  color: #000000;
-  padding: 10px;
+  bottom: 10%;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 2;
 }
 
-/* Media queries for mobile devices */
-@media (max-width: 768px) {
-  .linkButton {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
-  .menu {
-    top: 5px;
-    padding: 10px 20px;
-    flex-direction: column; /* Stack buttons vertically */
-    display: none; /* Hide menu by default */
-  }
-
-  .menu.open {
-    display: flex; /* Show menu when open class is added */
-  }
-
-  .menu-button {
-    display: block;
-  }
-
-  .footer {
-    padding: 10px 15px;
-  }
-
-  .client-preview iframe {
-    height: 100px; /* Reduce the height of the iframe for smaller screens */
-  }
+.menu-buttons {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  top: 70%;
+  left: 10%;
+  transform: translateY(-50%);
 }
 
-@media (max-width: 480px) {
-  .linkButton {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
+.menu-buttons button {
+  padding: 10px 25px;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s; /* Añadido para el efecto fade */
+  z-index: 2;
+}
 
-  .footer {
-    padding: 8px 12px;
-  }
+.menu-buttons button:hover {
+  background-color: #2e5399;
+  opacity: 0.8; /* Añadir efecto fade */
+}
 
-  .client-preview iframe {
-    height: 80px; /* Further reduce the height of the iframe for smaller screens */
-  }
+.back-button:hover {
+  background-color: #2e5399;
+  opacity: 0.8; /* Añadir efecto fade */
 }
 
 .modal-open .menu,
 .modal-open .menu-button {
   pointer-events: none; /* Desactivar clic en el menú */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(52, 52, 52);
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* GridPattern CSS */
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.fill-gray-400\/30 {
+  fill: rgba(156, 163, 175, 0.3);
+}
+
+.stroke-gray-400\/30 {
+  stroke: rgba(156, 163, 175, 0.3);
 }
