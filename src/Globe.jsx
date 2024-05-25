@@ -113,6 +113,7 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
     // Hacer una solicitud para obtener los datos de ipinfo.php
     axios.get('/ipinfo.php')
       .then(response => {
+        console.log('Datos de GPS obtenidos:', response.data); // Mensaje de consola para depuración
         setGpsData(response.data); // Guardar los datos en el estado
       })
       .catch(error => {
@@ -199,9 +200,9 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
           padding: '10px', 
           borderRadius: '5px' 
         }}>
-          <p>Latitud: {gpsData.latitude}</p>
-          <p>Longitud: {gpsData.longitude}</p>
-          <p>Ciudad: {gpsData.city}</p>
+          <p>IP: {gpsData.ip}</p>
+          <p>GPS: {gpsData.location}</p>
+          <p>ISP: {gpsData.organization}</p>
         </div>
       )}
       <AnimatedTitle style={{ position: 'absolute', zIndex: 1 }} /> {/* Añadir AnimatedTitle */}
