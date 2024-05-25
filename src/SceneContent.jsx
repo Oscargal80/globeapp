@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
@@ -9,18 +9,17 @@ const SceneContent = ({ allowInteraction, onSphereClick, zoomIn }) => {
   const isZoomedIn = useRef(false);
   const sphereRef = useRef();
   const linesRef = useRef([]);
-  
-  useEffect(() => {
-    const SCREEN_WIDTH = window.innerWidth;
-    const SCREEN_HEIGHT = window.innerHeight;
 
+  const SCREEN_WIDTH = window.innerWidth;
+  const SCREEN_HEIGHT = window.innerHeight;
+
+  useEffect(() => {
     camera.position.z = 1000;
 
     // Configurar niebla para la escena
     scene.fog = new THREE.FogExp2(0x000000, 0.002);
 
     // Crear partículas
-    const PI2 = Math.PI * 2;
     const material = new THREE.SpriteMaterial({
       color: 0x073763,
       map: new THREE.CanvasTexture(generateSprite()),

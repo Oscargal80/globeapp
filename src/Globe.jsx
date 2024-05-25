@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import createGlobe from "cobe";
-import Modal from './Modal';
-import ClientModal from './ClientModal';
-import AnimatedTitle from './AnimatedTitle'; // Importa AnimatedTitle
 import axios from 'axios'; // Importa axios
+
+const Modal = lazy(() => import('./Modal'));
+const ClientModal = lazy(() => import('./ClientModal'));
+const AnimatedTitle = lazy(() => import('./AnimatedTitle')); // Importa AnimatedTitle
 
 const GLOBE_CONFIG = {
   width: 800,
@@ -26,7 +27,7 @@ const GLOBE_CONFIG = {
     { location: [23.8103, 90.4125], size: 0.05 },
     { location: [30.0444, 31.2357], size: 0.07 },
     { location: [39.9042, 116.4074], size: 0.08 },
-    { location: [-25.28646, -57.647], size: 0.15 }, // Cambiado el tamaño del marcador específico
+    { location: [-25.28646, -57.647], size: 0.15 },
     { location: [19.4326, -99.1332], size: 0.1 },
     { location: [40.7128, -74.006], size: 0.1 },
     { location: [34.6937, 135.5022], size: 0.05 },
@@ -213,7 +214,13 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
           <p>Organización: {gpsData.organization}</p>
         </div>
       )}
-      <AnimatedTitle style={{ position: 'absolute', zIndex: 1 }} /> {/* Añadir AnimatedTitle */}
+      <Suspense fallback={<div>Cargando...</div>}>
+        <AnimatedTitle style={{ position: 'absolute', zIndex: 1 }} /> {/* Añadir AnimatedTitle */}
+        <Modal show={showModal} onClose={closeModal} title={modalContent.title}>
+          {modalContent.content}
+        </Modal>
+        <ClientModal show={showClientModal} onClose={closeClientModal} />
+      </Suspense>
       <button 
         onClick={handleBackClick} 
         className="back-button"
@@ -244,10 +251,6 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
           </>
         )}>Contactos</button>
       </div>
-      <Modal show={showModal} onClose={closeModal} title={modalContent.title}>
-        {modalContent.content}
-      </Modal>
-      <ClientModal show={showClientModal} onClose={closeClientModal} />
     </div>
   );
 };
