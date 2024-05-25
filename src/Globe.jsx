@@ -4,6 +4,7 @@ import createGlobe from "cobe";
 import Modal from './Modal';
 import ClientModal from './ClientModal';
 import AnimatedTitle from './AnimatedTitle'; // Importa AnimatedTitle
+import axios from 'axios'; // Importa axios
 
 const GLOBE_CONFIG = {
   width: 800,
@@ -52,6 +53,7 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
   const [showModal, setShowModal] = useState(false);
   const [showClientModal, setShowClientModal] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', content: '' });
+  const [gpsData, setGpsData] = useState(null); // Estado para guardar los datos de GPS
 
   const clickSound = useRef(new Audio('/assets/click.mp3')); // Ruta al archivo de sonido
   const backClickSound = useRef(new Audio('/assets/bip2.wav')); // Ruta al archivo de sonido de vuelta
@@ -106,6 +108,17 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
 
     return () => globe.destroy();
   }, [config, onRender]);
+
+  useEffect(() => {
+    // Hacer una solicitud para obtener los datos de ipinfo.php
+    axios.get('/ipinfo.php')
+      .then(response => {
+        setGpsData(response.data); // Guardar los datos en el estado
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos de GPS:", error);
+      });
+  }, []);
 
   const handleLinkClick = (title, content) => {
     clickSound.current.play(); // Reproducir sonido
@@ -175,6 +188,21 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
             zIndex: 5, // Asegurarse de que tenga un z-index apropiado
           }}
         />
+      )}
+      {gpsData && (
+        <div style={{ 
+          position: 'absolute', 
+          top: '5%', // Subir un poco más
+          left: '10%', 
+          zIndex: 10, 
+          backgroundColor: 'rgba(255, 255, 255, 0.8)', // Ajustar opacidad
+          padding: '10px', 
+          borderRadius: '5px' 
+        }}>
+          <p>Latitud: {gpsData.latitude}</p>
+          <p>Longitud: {gpsData.longitude}</p>
+          <p>Ciudad: {gpsData.city}</p>
+        </div>
       )}
       <AnimatedTitle style={{ position: 'absolute', zIndex: 1 }} /> {/* Añadir AnimatedTitle */}
       <button 
