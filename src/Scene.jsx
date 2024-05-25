@@ -30,15 +30,15 @@ const Scene = ({ allowInteraction, onButtonClick }) => {
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
-      <Canvas style={{ width: '100%', height: '100%' }}>
-        <Suspense fallback={null}>
+      <Suspense fallback={<div>Cargando escena...</div>}>
+        <Canvas style={{ width: '100%', height: '100%' }}>
           <SceneContent allowInteraction={allowInteraction} setLoading={setLoading} />
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <OrbitControls />
-        </Suspense>
-      </Canvas>
-      <Suspense fallback={null}>
+        </Canvas>
+      </Suspense>
+      <Suspense fallback={<div>Cargando título...</div>}>
         <AnimatedTitle />
       </Suspense>
       <button 
@@ -47,8 +47,8 @@ const Scene = ({ allowInteraction, onButtonClick }) => {
       >
         INICIAR VIAJE
       </button>
-      <Suspense fallback={null}>
-        <Footer style={{ position: 'absolute', bottom: 0, width: '100%' }} /> {/* Añade el Footer */}
+      <Suspense fallback={<div>Cargando pie de página...</div>}>
+        <Footer />
       </Suspense>
     </div>
   );

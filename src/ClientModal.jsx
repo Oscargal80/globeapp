@@ -13,13 +13,13 @@ const ClientModal = ({ show, onClose }) => {
     };
 
     if (show) {
-      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('keydown', handleKeyDown, { passive: true });
     } else {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown, { passive: true });
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown, { passive: true });
     };
   }, [show]);
 
@@ -42,16 +42,16 @@ const ClientModal = ({ show, onClose }) => {
               <iframe src="https://khairi.com.py" title="Khairi - Tuteur" />
             </div>
             <div className="client-preview">
-              <h4><a href="https://shop.binariaos.com.py" target="_blank" rel="noopener noreferrer">Shop Binariaos</a></h4>
-              <iframe src="https://shop.binariaos.com.py" title="Shop Binariaos" />
+              <h4><a href="https://cms.binariaos.com.py" target="_blank" rel="noopener noreferrer">CMS Binariaos</a></h4>
+              <iframe src="https://cms.binariaos.com.py" title="CMS Binariaos" />
             </div>
             <div className="client-preview">
               <h4><a href="https://expo.camaradeempresarioscde.org.py" target="_blank" rel="noopener noreferrer">Expo Construir Paraguay</a></h4>
               <iframe src="https://expo.camaradeempresarioscde.org.py" title="Expo Construir Paraguay" />
             </div>
             <div className="client-preview">
-              <h4><a href="https://cms.binariaos.com.py" target="_blank" rel="noopener noreferrer">CMS Binariaos</a></h4>
-              <iframe src="https://cms.binariaos.com.py" title="CMS Binariaos" />
+              <h4><a href="https://shop.binariaos.com.py" target="_blank" rel="noopener noreferrer">Shop Binariaos</a></h4>
+              <iframe src="https://shop.binariaos.com.py" title="Shop Binariaos" />
             </div>
             <div className="client-preview">
               <h4><a href="https://binaria-hugo.netlify.app" target="_blank" rel="noopener noreferrer">Binaria Hugo</a></h4>

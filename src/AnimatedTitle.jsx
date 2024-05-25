@@ -16,15 +16,15 @@ const AnimatedTitle = () => {
       setIsFaded(!isFaded);
     };
 
-    window.addEventListener('click', handleSceneClick);
+    window.addEventListener('click', handleSceneClick, { passive: true });
 
     return () => {
-      window.removeEventListener('click', handleSceneClick);
+      window.removeEventListener('click', handleSceneClick, { passive: true });
     };
   }, [isFaded]);
 
   return (
-    <div style={{ position: 'absolute', top: '45%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1, textAlign: 'center' }}>
+    <div className="animated-title-container">
       <svg className="svg-title" version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="600px" height="100px" viewBox="0 0 600 100">
         <style type="text/css">
           {`

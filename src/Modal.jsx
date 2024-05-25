@@ -16,13 +16,13 @@ const Modal = ({ show, onClose, title, children }) => {
     };
 
     if (show) {
-      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('keydown', handleKeyDown, { passive: true });
     } else {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown, { passive: true });
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown, { passive: true });
     };
   }, [show]);
 

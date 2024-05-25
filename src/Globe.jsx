@@ -205,13 +205,16 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
           top: '5%', // Subir un poco más
           left: '10%', 
           zIndex: 10, 
-          backgroundColor: 'rgba(255, 255, 255, 0.8)', // Ajustar opacidad
-          padding: '10px', 
-          borderRadius: '5px' 
+          backgroundColor: 'rgba(255, 255, 255, 0.9)', // Ajustar opacidad
+          padding: '5px', // Reducir padding
+          borderRadius: '5px',
+          fontSize: '8px', // Reducir tamaño de fuente
+          maxWidth: '150px', // Limitar el ancho máximo
+          wordWrap: 'break-word', // Ajustar el texto para que se ajuste al contenedor
         }}>
           <p>IP: {gpsData.ip}</p>
-          <p>Ubicación: {gpsData.location}</p>
-          <p>Organización: {gpsData.organization}</p>
+          <p>GPS: {gpsData.location}</p>
+          <p>ISP: {gpsData.organization}</p>
         </div>
       )}
       <Suspense fallback={<div>Cargando...</div>}>
