@@ -5,12 +5,9 @@ import './GridPattern.css'; // Importa el archivo CSS para GridPattern
 const cn = (...classes) => classes.filter(Boolean).join(' ');
 
 export function GridPattern({
-  width = 5, // Reducido para cuadros más pequeños
-  height = 5, // Reducido para cuadros más pequeños
-  x = -1,
-  y = -1,
-  strokeDasharray = 0,
-  numSquares = 50,
+  width = 5, // Reducido para círculos más pequeños
+  height = 5, // Reducido para círculos más pequeños
+  numCircles = 50,
   className,
   maxOpacity = 0.5,
   duration = 4,
@@ -20,7 +17,7 @@ export function GridPattern({
   const id = useId();
   const containerRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [squares, setSquares] = useState(() => generateSquares(numSquares));
+  const [circles, setCircles] = useState(() => generateCircles(numCircles));
 
   function getPos() {
     return [
@@ -29,31 +26,31 @@ export function GridPattern({
     ];
   }
 
-  function generateSquares(count) {
+  function generateCircles(count) {
     return Array.from({ length: count }, (_, i) => ({
       id: i,
       pos: getPos(),
     }));
   }
 
-  const updateSquarePosition = (id) => {
-    setSquares((currentSquares) =>
-      currentSquares.map((sq) =>
-        sq.id === id
+  const updateCirclePosition = (id) => {
+    setCircles((currentCircles) =>
+      currentCircles.map((circle) =>
+        circle.id === id
           ? {
-              ...sq,
+              ...circle,
               pos: getPos(),
             }
-          : sq,
+          : circle,
       ),
     );
   };
 
   useEffect(() => {
     if (dimensions.width && dimensions.height) {
-      setSquares(generateSquares(numSquares));
+      setCircles(generateCircles(numCircles));
     }
-  }, [dimensions, numSquares]);
+  }, [dimensions, numCircles]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -86,26 +83,9 @@ export function GridPattern({
       )}
       {...props}
     >
-      <defs>
-        <pattern
-          id={id}
-          width={width}
-          height={height}
-          patternUnits="userSpaceOnUse"
-          x={x}
-          y={y}
-        >
-          <path
-            d={`M.5 ${height}V.5H${width}`}
-            fill="none"
-            strokeDasharray={strokeDasharray}
-          />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill={`url(#${id})`} />
-      <svg x={x} y={y} className="overflow-visible">
-        {squares.map(({ pos: [x, y], id }, index) => (
-          <motion.rect
+      <svg className="overflow-visible">
+        {circles.map(({ pos: [x, y], id }, index) => (
+          <motion.circle
             initial={{ opacity: 0 }}
             animate={{ opacity: maxOpacity }}
             transition={{
@@ -114,12 +94,11 @@ export function GridPattern({
               delay: index * 0.1,
               repeatType: "reverse",
             }}
-            onAnimationComplete={() => updateSquarePosition(id)}
+            onAnimationComplete={() => updateCirclePosition(id)}
             key={`${x}-${y}-${index}`}
-            width={width - 1}
-            height={height - 1}
-            x={x * width + 1}
-            y={y * height + 1}
+            r={Math.min(width, height) / 2 - 1}
+            cx={x * width + width / 2}
+            cy={y * height + height / 2}
             fill="currentColor"
             strokeWidth="0"
           />
