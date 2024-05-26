@@ -134,9 +134,9 @@ button.back-button {
 
 .menu-buttons button {
   padding: 10px 25px;
-  background-color: #ffffff;
+  background-color: #eeeeee;
   color: rgb(0, 0, 0);
-  border: 1px solid rgb(79, 79, 79); /* Añadir borde */
+  border: 1px solid rgb(255, 255, 255); /* Añadir borde */
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, opacity 0.3s; /* Añadido para el efecto fade */

@@ -18,7 +18,7 @@
   width: 100%;
   padding: 20px;
   position: relative;
-  z-index: 1002; /* Asegurar que el modal esté al frente del overlay */
+  z-index: 1003; /* Asegurar que el modal esté al frente del overlay */
 }
 
 .modal-header {
@@ -29,7 +29,7 @@
 
 .modal-content {
   margin-top: 20px;
-  text-align: justify;
+  text-align: left;
 }
 
 .close {

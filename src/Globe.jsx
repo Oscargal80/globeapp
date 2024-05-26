@@ -57,7 +57,7 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
   const [gpsData, setGpsData] = useState(null); // Estado para guardar los datos de GPS
 
   const clickSound = useRef(new Audio('/assets/click.mp3')); // Ruta al archivo de sonido
-  const backClickSound = useRef(new Audio('/assets/bip2.wav')); // Ruta al archivo de sonido de vuelta
+  const backClickSound = useRef(new Audio('/assets/bip.wav')); // Ruta al archivo de sonido de vuelta
 
   const updatePointerInteraction = (value) => {
     pointerInteracting.current = value;
@@ -212,9 +212,9 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
           maxWidth: '150px', // Limitar el ancho máximo
           wordWrap: 'break-word', // Ajustar el texto para que se ajuste al contenedor
         }}>
-          <p>IP: {gpsData.ip}</p>
-          <p>GPS: {gpsData.location}</p>
-          <p>ISP: {gpsData.organization}</p>
+          <p><strong>IP:</strong> {gpsData.ip}</p>
+          <p><strong>GPS:</strong> {gpsData.location}</p>
+          <p><strong>ISP:</strong> {gpsData.organization}</p>
         </div>
       )}
       <Suspense fallback={<div>Cargando...</div>}>
