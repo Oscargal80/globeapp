@@ -1,108 +1,109 @@
 .menu-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: rgba(255, 255, 255, 0.5);
-    color: rgb(0, 0, 0);
-    display: flex;
-    justify-content: center; /* Centrar el menú */
-    align-items: center;
-    padding: 0 10px;
-    z-index: 10;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center; /* Centrar el menú */
+  align-items: center;
+  padding: 0 10px;
+  z-index: 10;
+}
+
+.menu-header .menu-buttons {
+  display: flex;
+  flex-direction: row;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  justify-content: center; /* Centrar los botones */
+}
+
+.hamburger {
+  position: absolute;
+  left: 20px; /* Mover a la izquierda */
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: rgb(255, 89, 0);
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+/* Estilos para cuando el menú está abierto */
+.hamburger.open div:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open div:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Mostrar el menú hamburguesa en pantallas pequeñas */
+@media (max-width: 768px) {
   .menu-header .menu-buttons {
-    display: flex;
-    flex-direction: row;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    justify-content: center; /* Centrar los botones */
-  }
-  
-  .hamburger {
     position: absolute;
-    left: 20px; /* Mover a la izquierda */
-    display: none;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto; /* No ocupar todo el ancho */
     flex-direction: column;
-    cursor: pointer;
-  }
-  
-  .hamburger div {
-    width: 25px;
-    height: 3px;
-    background-color: rgb(255, 89, 0);
-    margin: 4px 0;
-    transition: all 0.3s ease;
-  }
-  
-  /* Estilos para cuando el menú está abierto */
-  .hamburger.open div:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
-  }
-  
-  .hamburger.open div:nth-child(2) {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-100%);
     opacity: 0;
+    display: none; /* Ocultar por defecto */
   }
-  
-  .hamburger.open div:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
+
+  .menu-header .menu-buttons.open {
+    transform: translateY(0);
+    opacity: 1;
+    display: flex; /* Mostrar cuando está abierto */
   }
-  
-  /* Mostrar el menú hamburguesa en pantallas pequeñas */
-  @media (max-width: 768px) {
-    .menu-header .menu-buttons {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      flex-direction: column;
-      background-color: rgba(255, 255, 255, 0.9);
-      transform: translateY(-100%);
-      opacity: 0;
-      display: none; /* Ocultar por defecto */
-    }
-  
-    .menu-header .menu-buttons.open {
-      transform: translateY(0);
-      opacity: 1;
-      display: flex; /* Mostrar cuando está abierto */
-    }
-  
-    .menu-header .menu-buttons button {
-      width: auto; /* No ocupar todo el ancho */
-    }
-  
-    .hamburger {
-      display: flex;
-    }
+
+  .menu-header .menu-buttons button {
+    width: auto; /* No ocupar todo el ancho */
+    margin: 5px 0; /* Añadir margen vertical */
   }
-  
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+.menu-header button {
+  background: none;
+  border: none;
+  color: rgb(55, 54, 54);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 15px;
+  margin: 0 5px;
+  transition: color 0.3s ease, transform 0.3s ease; /* Añadir transición para el color y la transformación */
+}
+
+.menu-header button:hover {
+  color: #ff0000; /* Cambiar color al hover a rojo */
+  transform: scale(1.1); /* Añadir una ligera ampliación al hover */
+}
+
+/* Hover en pantallas pequeñas */
+@media (max-width: 768px) {
   .menu-header button {
-    background: none;
-    border: none;
-    color: rgb(55, 54, 54);
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 10px 15px;
-    margin: 0 5px;
-    transition: color 0.3s ease, transform 0.3s ease; /* Añadir transición para el color y la transformación */
+    font-size: 1.2rem; /* Tamaño de fuente más grande en pantallas pequeñas */
   }
-  
+
   .menu-header button:hover {
     color: #000000; /* Cambiar color al hover a negro */
     transform: scale(1.1); /* Añadir una ligera ampliación al hover */
   }
-  
-  /* Hover en pantallas pequeñas */
-  @media (max-width: 768px) {
-    .menu-header button {
-      font-size: 1.2rem; /* Tamaño de fuente más grande en pantallas pequeñas */
-    }
-  
-    .menu-header button:hover {
-      color: #000000; /* Cambiar color al hover a negro */
-      transform: scale(1.1); /* Añadir una ligera ampliación al hover */
-    }
-  }
-  
+}
