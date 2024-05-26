@@ -167,9 +167,9 @@ const Globe = ({ className, config = GLOBE_CONFIG }) => {
       {gpsData && (
         <div style={{ 
           position: 'absolute', 
-          bottom: '8%', // Mover abajo
+          bottom: '10%', // Mover abajo
           left: '5%', // Mover a la izquierda
-          zIndex: 10, 
+          zIndex: 999, // Asegurar un z-index alto
           backgroundColor: 'rgba(255, 255, 255, 0.9)', // Ajustar opacidad
           padding: '5px', // Reducir padding
           borderRadius: '5px',

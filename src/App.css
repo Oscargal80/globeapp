@@ -13,7 +13,6 @@ body, button {
   box-sizing: border-box;
   position: relative;
   z-index: 1;
-  background-color: #ffffff; /* Puedes mantener este color como respaldo */
 }
 
 body::before {
