@@ -1,11 +1,10 @@
-import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback, Suspense, lazy } from "react";
 import { useSpring, animated } from "react-spring";
 import createGlobe from "cobe";
-import axios from 'axios'; // Importa axios
-
+import axios from 'axios';
+import AnimatedTitle from './AnimatedTitle'; // Importa AnimatedTitle
 const Modal = lazy(() => import('./Modal'));
 const ClientModal = lazy(() => import('./ClientModal'));
-const AnimatedTitle = lazy(() => import('./AnimatedTitle')); // Importa AnimatedTitle
 
 const GLOBE_CONFIG = {
   width: 800,
@@ -35,7 +34,7 @@ const GLOBE_CONFIG = {
   ],
 };
 
-const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
+const Globe = ({ className, config = GLOBE_CONFIG }) => {
   let phi = 0;
   let width = 0;
   const canvasRef = useRef(null);
@@ -51,13 +50,7 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
     },
   }));
 
-  const [showModal, setShowModal] = useState(false);
-  const [showClientModal, setShowClientModal] = useState(false);
-  const [modalContent, setModalContent] = useState({ title: '', content: '' });
   const [gpsData, setGpsData] = useState(null); // Estado para guardar los datos de GPS
-
-  const clickSound = useRef(new Audio('/assets/click.mp3')); // Ruta al archivo de sonido
-  const backClickSound = useRef(new Audio('/assets/bip.wav')); // Ruta al archivo de sonido de vuelta
 
   const updatePointerInteraction = (value) => {
     pointerInteracting.current = value;
@@ -122,34 +115,6 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
       });
   }, []);
 
-  const handleLinkClick = (title, content) => {
-    clickSound.current.play(); // Reproducir sonido
-    setModalContent({ title, content });
-    setShowModal(true);
-    document.body.classList.add('modal-open'); // Desactivar clic en el menú
-  };
-
-  const handleClientLinkClick = () => {
-    clickSound.current.play(); // Reproducir sonido
-    setShowClientModal(true);
-    document.body.classList.add('modal-open'); // Desactivar clic en el menú
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    document.body.classList.remove('modal-open'); // Liberar clic en el menú
-  };
-
-  const closeClientModal = () => {
-    setShowClientModal(false);
-    document.body.classList.remove('modal-open'); // Liberar clic en el menú
-  };
-
-  const handleBackClick = () => {
-    backClickSound.current.play(); // Reproducir sonido
-    onBackClick(); // Llamar a la función de vuelta
-  };
-
   const specialMarker = config.markers.find(
     (marker) => marker.location[0] === -25.28646 && marker.location[1] === -57.647
   );
@@ -202,8 +167,8 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
       {gpsData && (
         <div style={{ 
           position: 'absolute', 
-          top: '5%', // Subir un poco más
-          left: '10%', 
+          bottom: '8%', // Mover abajo
+          left: '5%', // Mover a la izquierda
           zIndex: 10, 
           backgroundColor: 'rgba(255, 255, 255, 0.9)', // Ajustar opacidad
           padding: '5px', // Reducir padding
@@ -219,41 +184,7 @@ const Globe = ({ className, config = GLOBE_CONFIG, onBackClick }) => {
       )}
       <Suspense fallback={<div>Cargando...</div>}>
         <AnimatedTitle style={{ position: 'absolute', zIndex: 1 }} /> {/* Añadir AnimatedTitle */}
-        <Modal show={showModal} onClose={closeModal} title={modalContent.title}>
-          {modalContent.content}
-        </Modal>
-        <ClientModal show={showClientModal} onClose={closeClientModal} />
       </Suspense>
-      <button 
-        onClick={handleBackClick} 
-        className="back-button"
-        style={{ zIndex: 10 }} // Asegurarse de que el botón esté al frente
-      >
-        VOLVER AL INICIO
-      </button>
-      <div className="menu-buttons" style={{ zIndex: 10 }}> {/* Asegurarse de que el menú esté al frente */}
-        <button onClick={() => handleLinkClick('Acerca', 
-          <>
-            <p>Nos dedicamos al desarrollo de sitios web minimalistas y elegantes, sencillos pero robustos y totalmente adaptables a cualquier formato, con campos y tablas dinámicas. Nuestro compromiso es crecer con usted y su emprendimiento.</p>
-            <p>Para saber más, comuníquese a <a href="mailto:info@binariaos.com.py">info@binariaos.com.py</a></p>
-          </>
-        )}>Acerca</button>
-        <button onClick={() => handleLinkClick('Servicios', 
-          <>
-            <p>1- Desarrollo en HTML5, PHP, CSS, Javascript, entre otros.</p>
-            <p>2- Desarrollo sobre Wordpress, Drupal y otros CMS.</p>
-            <p>3- Gestión de e-commerce. Base de datos y seguridad web.</p>
-            <p>4- Diseño y desarrollo de interfaces.</p>
-            <p>5- Front-end Development.</p>
-          </>
-        )}>Servicios</button>
-        <button onClick={handleClientLinkClick}>Clientes</button>
-        <button onClick={() => handleLinkClick('Contactos', 
-          <>
-            <p>Para saber más, comuníquese a <a href="mailto:info@binariaos.com.py">info@binariaos.com.py</a></p>
-          </>
-        )}>Contactos</button>
-      </div>
     </div>
   );
 };

@@ -1,20 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import './Modal.css';
-import useSound from 'use-sound';
 
 const Modal = ({ show, onClose, title, children }) => {
   const nodeRef = useRef(null);
 
-  const [playCloseSound] = useSound('/assets/close.mp3'); // Ruta al archivo de sonido
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      onClose(); // Cerrar modal
+    }
+  };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        playCloseSoundAndClose();
-      }
-    };
-
     if (show) {
       document.addEventListener('keydown', handleKeyDown, { passive: true });
     } else {
@@ -25,11 +22,6 @@ const Modal = ({ show, onClose, title, children }) => {
       document.removeEventListener('keydown', handleKeyDown, { passive: true });
     };
   }, [show]);
-
-  const playCloseSoundAndClose = () => {
-    playCloseSound(); // Reproducir sonido
-    onClose(); // Cerrar modal
-  };
 
   return (
     <CSSTransition
@@ -43,7 +35,7 @@ const Modal = ({ show, onClose, title, children }) => {
         <div className="modal">
           <div className="modal-header">
             <h2>{title}</h2>
-            <span className="close" onClick={playCloseSoundAndClose}>&times;</span>
+            <span className="close" onClick={onClose}>&times;</span>
           </div>
           <div className="modal-content">
             {children}

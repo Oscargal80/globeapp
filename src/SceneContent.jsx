@@ -26,7 +26,7 @@ const SceneContent = ({ allowInteraction, onSphereClick, zoomIn }) => {
       blending: THREE.AdditiveBlending,
     });
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1600; i++) {
       const particle = new THREE.Sprite(material);
       particle.position.x = Math.random() * 2 - 1;
       particle.position.y = Math.random() * 2 - 1;
@@ -39,7 +39,7 @@ const SceneContent = ({ allowInteraction, onSphereClick, zoomIn }) => {
 
     // Crear líneas
     const initialColor = new THREE.Color(0x000000); // Negro
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 600; i++) {
       const geometry = new THREE.BufferGeometry();
       const vertices = [];
 

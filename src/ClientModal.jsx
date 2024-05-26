@@ -3,15 +3,13 @@ import { CSSTransition } from 'react-transition-group';
 import './ClientModal.css';
 
 const ClientModal = ({ show, onClose }) => {
-  const closeSound = new Audio('/assets/close.mp3'); // Ruta al archivo de sonido
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      onClose(); // Cerrar modal
+    }
+  };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        playCloseSoundAndClose();
-      }
-    };
-
     if (show) {
       document.addEventListener('keydown', handleKeyDown, { passive: true });
     } else {
@@ -23,18 +21,13 @@ const ClientModal = ({ show, onClose }) => {
     };
   }, [show]);
 
-  const playCloseSoundAndClose = () => {
-    closeSound.play(); // Reproducir sonido
-    onClose(); // Cerrar modal
-  };
-
   return (
     <CSSTransition in={show} timeout={300} classNames="fade" unmountOnExit>
       <div className="client-modal-overlay">
         <div className="client-modal">
           <div className="client-modal-header">
             <h2>Clientes y Trabajos</h2>
-            <span className="client-modal-close" onClick={playCloseSoundAndClose}>&times;</span>
+            <span className="client-modal-close" onClick={onClose}>&times;</span>
           </div>
           <div className="client-modal-content">
             <div className="client-preview">
